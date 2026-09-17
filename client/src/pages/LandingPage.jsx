@@ -1,138 +1,155 @@
-import { ArrowRight, Globe, NotebookPen, Search, ShieldCheck, Sparkles, Zap } from 'lucide-react';
+import { ArrowRight, BookOpen, Lock, Search, Sparkles, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const features = [
+  {
+    icon: <Zap size={18} />,
+    title: 'Fast capture',
+    text: 'Write thoughts quickly without breaking your flow.',
+    color: 'bg-[#fef3c7] text-[#b7791f]',
+  },
+  {
+    icon: <Lock size={18} />,
+    title: 'Private & secure',
+    text: 'Everything stays securely scoped to your account only.',
+    color: 'bg-[#daf7ea] text-[#197a46]',
+  },
+  {
+    icon: <Search size={18} />,
+    title: 'Organized view',
+    text: 'Search, pin, archive, and revisit notes with ease.',
+    color: 'bg-[#ece1ff] text-[#6f4bc8]',
+  },
+];
+
+const exampleNotes = [
+  { title: 'Placement Preparation', color: 'bg-[#cfe1ff]', tag: 'Career' },
+  { title: 'Project Ideas', color: 'bg-[#e9d8fd]', tag: 'Ideas' },
+  { title: 'Personal Growth', color: 'bg-[#c6f6d5]', tag: 'Mindset' },
+];
+
 const LandingPage = () => (
-  <div className="min-h-screen bg-[#1b1d22] p-3 text-slate-800 md:p-5">
-    <div className="mx-auto max-w-[1700px] overflow-hidden rounded-[22px] border border-slate-700 bg-[#eef0f4] shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
-      <header className="flex h-14 items-center justify-between border-b border-slate-700 bg-[#1f242c] px-4 text-white md:px-6">
-        <div className="flex items-center gap-3">
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-slate-800">‹</div>
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-slate-800">›</div>
-          <div className="ml-2 flex h-9 items-center gap-2 rounded-md border border-slate-600 bg-[#2a3039] px-3 text-sm text-slate-200">
-            <Globe size={14} className="text-slate-400" />
-            localhost:5173
-          </div>
+  <div className="min-h-screen bg-[#f4f5f7] flex flex-col">
+    {/* Nav */}
+    <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white px-5 py-3.5 md:px-8">
+      <div className="flex items-center gap-2.5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#6d5efc] to-[#8b7cf8] shadow-sm">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>
         </div>
-
-        <div className="flex items-center gap-3 text-sm text-slate-200">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-600 bg-[#2a3039]">
-            <Sparkles size={14} />
-          </div>
-          <div className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-600 bg-[#2a3039]">
-            <Search size={14} />
-          </div>
-          <div className="h-8 w-8 rounded-md bg-[#f97316]" />
-        </div>
-      </header>
-
-      <div className="flex min-h-[calc(100vh-4.5rem)]">
-        <aside className="w-[280px] border-r border-slate-200 bg-[#f7f8fa] p-5">
-          <div className="mb-8 flex items-center gap-3 px-1">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5f54f7] text-lg font-bold text-white shadow-md shadow-[#5f54f7]/25">
-              N
-            </div>
-            <div className="text-[15px] font-semibold tracking-[-0.03em] text-slate-700">NoteHub</div>
-          </div>
-
-          <nav className="space-y-2 text-sm">
-            <Link to="/login" className="block rounded-xl px-3 py-2 font-medium text-slate-600 transition hover:bg-white hover:text-slate-800">
-              Login
-            </Link>
-            <Link to="/register" className="block rounded-xl px-3 py-2 font-medium text-slate-600 transition hover:bg-white hover:text-slate-800">
-              Register
-            </Link>
-          </nav>
-
-          <div className="mt-8 space-y-6 text-slate-600">
-            <div className="space-y-4">
-              <div className="text-[15px] font-medium leading-7 text-slate-700">
-                Smart notes for product builders
-              </div>
-              <div className="text-[15px] font-medium leading-7 text-slate-700">
-                Capture ideas. Build momentum.
-              </div>
-              <p className="text-sm leading-6 text-slate-500">
-                A clean, focused notes workspace for your plans, ideas, and personal knowledge.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Link to="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#5f54f7] px-4 py-2.5 text-sm font-medium text-white shadow-md shadow-[#5f54f7]/20 transition hover:bg-[#4f47e0]">
-                Get started
-                <ArrowRight size={15} />
-              </Link>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Link to="/login" className="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50">
-                Sign in
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-10 space-y-4 border-t border-slate-200 pt-6">
-            <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#e8ebff] text-[#4b57d7]">
-                <NotebookPen size={16} />
-              </div>
-              <div className="flex-1">
-                <div className="text-sm font-semibold text-slate-700">Daily workspace</div>
-                <div className="text-[11px] text-slate-400">Live</div>
-              </div>
-            </div>
-
-            {[{ title: 'Placement Preparation', accent: 'bg-[#dfeaff]' }, { title: 'Project Ideas', accent: 'bg-[#f2e3ff]' }, { title: 'Personal Growth', accent: 'bg-[#daf5e8]' }].map((note) => (
-              <div key={note.title} className="rounded-[18px] border border-slate-200 bg-white p-3 shadow-sm">
-                <div className={`mb-2 h-2.5 w-20 rounded-full ${note.accent}`} />
-                <div className="text-base font-semibold text-slate-700">{note.title}</div>
-                <p className="mt-2 text-xs leading-5 text-slate-500">Capture ideas, plans, and next actions in one place.</p>
-              </div>
-            ))}
-          </div>
-        </aside>
-
-        <main className="flex-1 bg-[#edf0f5] p-8 lg:p-10">
-          <div className="mx-auto max-w-6xl pt-4">
-            <div className="mb-8 flex items-center gap-2 text-sm font-medium text-[#4b57d7]">
-              <Sparkles size={14} />
-              Smart notes for product builders
-            </div>
-
-            <h1 className="max-w-2xl text-4xl font-semibold tracking-[-0.06em] text-slate-900 md:text-6xl">
-              Capture ideas. Build momentum.
-            </h1>
-
-            <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
-              A clean, focused notes workspace for your plans, ideas, and personal knowledge.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Link to="/register" className="inline-flex items-center gap-2 rounded-xl bg-[#5f54f7] px-5 py-3 text-sm font-medium text-white shadow-lg shadow-[#5f54f7]/20 transition hover:bg-[#4f47e0]">
-                Get started
-                <ArrowRight size={16} />
-              </Link>
-              <Link to="/login" className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50">
-                Sign in
-              </Link>
-            </div>
-
-            <div className="mt-16 grid gap-5 md:grid-cols-3">
-              {[
-                { icon: <Zap size={18} />, title: 'Fast capture', text: 'Write thoughts quickly without breaking your flow.' },
-                { icon: <ShieldCheck size={18} />, title: 'Private notes', text: 'Everything stays securely scoped to your account.' },
-                { icon: <Sparkles size={18} />, title: 'Organized view', text: 'Search, pin, archive, and revisit notes with ease.' },
-              ].map((feature) => (
-                <div key={feature.title} className="rounded-[22px] border border-slate-200 bg-white p-5 shadow-sm">
-                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef0ff] text-[#4d47d7]">{feature.icon}</div>
-                  <div className="text-lg font-semibold text-slate-800">{feature.title}</div>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{feature.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </main>
+        <span className="text-base font-bold text-slate-800">NoteHub</span>
       </div>
-    </div>
+      <div className="flex items-center gap-3">
+        <Link to="/login" className="text-sm font-medium text-slate-600 hover:text-slate-800 transition">
+          Sign in
+        </Link>
+        <Link
+          to="/register"
+          className="rounded-xl bg-[#5f54f7] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#5f54f7]/25 transition hover:bg-[#4d45d8]"
+        >
+          Get started
+        </Link>
+      </div>
+    </header>
+
+    {/* Hero */}
+    <section className="flex flex-1 flex-col items-center justify-center px-5 py-20 text-center md:py-28">
+      <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#c7c2fc] bg-[#eef0ff] px-3.5 py-1.5 text-xs font-semibold text-[#5f54f7]">
+        <Sparkles size={12} />
+        Smart notes for modern thinkers
+      </div>
+      <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight text-slate-800 md:text-5xl lg:text-6xl">
+        Capture ideas.<br />
+        <span className="text-[#5f54f7]">Build momentum.</span>
+      </h1>
+      <p className="mt-5 max-w-md text-base leading-relaxed text-slate-500">
+        A calm, focused notes workspace for your plans, ideas, and personal knowledge. Built for thinkers.
+      </p>
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <Link
+          to="/register"
+          className="inline-flex items-center gap-2 rounded-xl bg-[#5f54f7] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#5f54f7]/25 transition hover:bg-[#4d45d8]"
+        >
+          Start for free
+          <ArrowRight size={15} />
+        </Link>
+        <Link
+          to="/login"
+          className="rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50"
+        >
+          Sign in
+        </Link>
+      </div>
+    </section>
+
+    {/* Preview cards */}
+    <section className="px-5 pb-12 md:pb-16">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-8 text-center">
+          <h2 className="text-lg font-bold text-slate-800">Your ideas, beautifully organized</h2>
+          <p className="mt-1.5 text-sm text-slate-500">Pin important notes, tag everything, and find it instantly.</p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {exampleNotes.map((note) => (
+            <div key={note.title} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <div className="mb-3 flex items-center gap-2.5">
+                <div className={`h-3 w-3 rounded-sm ${note.color}`} />
+                <span className="text-sm font-semibold text-slate-700">{note.title}</span>
+              </div>
+              <p className="text-xs leading-relaxed text-slate-500">
+                Capture your thoughts and organize them with tags, colors, and pins.
+              </p>
+              <div className="mt-3">
+                <span className="rounded-full bg-[#eef0ff] px-2.5 py-0.5 text-[11px] font-medium text-[#5f54f7]">
+                  {note.tag}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Features */}
+    <section className="border-t border-slate-200 bg-white px-5 py-12 md:py-16">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl font-bold text-slate-800">Everything you need</h2>
+          <p className="mt-2 text-sm text-slate-500">Simple, powerful, and always available.</p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {features.map((f) => (
+            <div key={f.title} className="rounded-2xl border border-slate-200 bg-[#f4f5f7] p-5">
+              <div className={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl ${f.color}`}>
+                {f.icon}
+              </div>
+              <div className="text-base font-bold text-slate-800">{f.title}</div>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{f.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section className="px-5 py-14 text-center md:py-20">
+      <h2 className="text-2xl font-bold text-slate-800 md:text-3xl">Ready to get started?</h2>
+      <p className="mt-3 text-sm text-slate-500">Join thousands of people who organize their ideas with NoteHub.</p>
+      <Link
+        to="/register"
+        className="mt-7 inline-flex items-center gap-2 rounded-xl bg-[#5f54f7] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-[#5f54f7]/25 transition hover:bg-[#4d45d8]"
+      >
+        Create your first note
+        <ArrowRight size={15} />
+      </Link>
+    </section>
+
+    {/* Footer */}
+    <footer className="border-t border-slate-200 bg-white px-5 py-5 text-center text-xs text-slate-400">
+      © {new Date().getFullYear()} NoteHub · A calmer mind, everyday
+    </footer>
   </div>
 );
 

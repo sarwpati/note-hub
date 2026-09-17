@@ -23,6 +23,7 @@ const protect = asyncHandler(async (req, res, next) => {
     const user = await User.findById(decoded.userId).select('-password');
 
     if (!user) {
+      res.clearCookie('token');
       return res.status(401).json({
         success: false,
         message: 'User not found',
@@ -32,6 +33,7 @@ const protect = asyncHandler(async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
+    res.clearCookie('token');
     return res.status(401).json({
       success: false,
       message: 'Not authorized, token failed',
