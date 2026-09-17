@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+/dist/
+/build/
+/.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Cache
+.cache/
+.parcel-cache/
+.vite/
+.eslintcache
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test artifacts
+coverage/
+
+# Local database / runtime data
+*.sqlite
+*.sqlite3
+*.db
+
+# Sensitive / local-only files
+server/.env
+client/.env
+
+# Optional: lockfiles if your team prefers not to commit them
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
