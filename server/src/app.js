@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -6,6 +8,10 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 import noteRoutes from './routes/note.routes.js';
 import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientDistPath = path.resolve(__dirname, '../../client/dist');
 
 const app = express();
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
@@ -72,6 +78,14 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(clientDistPath));
+
+  app.get(/^\/(?!api).*/, (req, res) => {
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
 
 app.use(notFoundHandler);
 app.use(errorHandler);
