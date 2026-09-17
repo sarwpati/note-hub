@@ -5,6 +5,7 @@ import Sidebar, { MobileBottomNav, MobileSidebarToggle } from '../components/lay
 import TopBar from '../components/layout/TopBar';
 import NoteCard from '../components/notes/NoteCard';
 import { useAuth } from '../context/AuthContext';
+import { useConfirm } from '../context/ConfirmContext';
 import { useDebounce } from '../hooks/useDebounce';
 import { noteService } from '../services/noteService';
 
@@ -31,6 +32,7 @@ const getGreeting = () => {
 const DashboardPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { confirm } = useConfirm();
   const [searchParams, setSearchParams] = useSearchParams();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +101,14 @@ const DashboardPage = () => {
   const handlePin = async (note) => { await noteService.togglePin(note._id); await fetchNotes(); };
   const handleArchive = async (note) => { await noteService.toggleArchive(note._id); await fetchNotes(); };
   const handleDelete = async (note) => {
-    if (!window.confirm('Delete this note?')) return;
+    const ok = await confirm({
+      title: 'Delete note?',
+      message: `"${note.title}" will be permanently deleted and cannot be recovered.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      variant: 'danger',
+    });
+    if (!ok) return;
     await noteService.deleteNote(note._id);
     await fetchNotes();
   };
@@ -109,7 +118,7 @@ const DashboardPage = () => {
   const filterTabs = [
     { key: 'all', label: 'All' },
     { key: 'pinned', label: 'Pinned' },
-    { key: 'archive', label: 'Archive' },
+    { key: 'archive', label: 'Archive', navigateTo: '/archive' },
   ];
 
   return (
@@ -144,7 +153,6 @@ const DashboardPage = () => {
         <TopBar
           searchValue={search}
           onSearch={setSearch}
-          onCreate={() => navigate('/dashboard?new=1')}
         />
 
         {/* Greeting */}
@@ -157,11 +165,11 @@ const DashboardPage = () => {
 
         {/* Filter tabs */}
         <div className="mb-6 flex items-center gap-1 border-b border-slate-200">
-          {filterTabs.map(({ key, label }) => (
+          {filterTabs.map(({ key, label, navigateTo }) => (
             <button
               key={key}
               type="button"
-              onClick={() => setFilter(key)}
+              onClick={() => navigateTo ? navigate(navigateTo) : setFilter(key)}
               className={`px-4 py-2 text-sm font-medium transition border-b-2 -mb-px ${
                 filter === key
                   ? 'border-[#5f54f7] text-[#5f54f7]'

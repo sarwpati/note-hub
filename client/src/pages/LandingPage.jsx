@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Lock, Search, Sparkles, Zap } from 'lucide-react';
+import { ArrowRight, Lock, Search, Sparkles, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const features = [

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Bell, ChevronRight, LogOut, Moon, Palette, Shield, Sun, UserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import { useConfirm } from '../context/ConfirmContext';
 import { authService } from '../services/authService';
 
 const settingsNav = [
@@ -13,17 +15,29 @@ const settingsNav = [
 const SettingsPage = () => {
   const navigate = useNavigate();
   const { user, logout, refreshUser } = useAuth();
+  const { theme, setTheme } = useTheme();
+  const { confirm } = useConfirm();
   const [activeSection, setActiveSection] = useState('profile');
   const [name, setName] = useState(user?.name || '');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
-  const [theme, setTheme] = useState('light');
 
   useEffect(() => { setName(user?.name || ''); }, [user?.name]);
 
-  const handleLogout = async () => { await logout(); navigate('/login'); };
+  const handleLogout = async () => {
+    const ok = await confirm({
+      title: 'Log out?',
+      message: 'You will be signed out of your account. Any unsaved changes will be lost.',
+      confirmText: 'Log out',
+      cancelText: 'Stay',
+      variant: 'logout',
+    });
+    if (!ok) return;
+    await logout();
+    navigate('/login');
+  };
 
   const handleSave = async () => {
     setMessage({ type: '', text: '' });

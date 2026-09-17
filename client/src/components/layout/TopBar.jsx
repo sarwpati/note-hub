@@ -1,4 +1,4 @@
-import { Bell, ChevronLeft, Command, Plus, Search } from 'lucide-react';
+import { Bell, ChevronLeft, Plus, Search } from 'lucide-react';
 
 const TopBar = ({
   searchValue,
@@ -28,12 +28,8 @@ const TopBar = ({
         value={searchValue}
         onChange={(event) => onSearch?.(event.target.value)}
         placeholder={searchPlaceholder}
-        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-20 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#5f54f7] focus:ring-2 focus:ring-[#5f54f7]/10 placeholder:text-slate-400"
+        className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-700 shadow-sm outline-none transition focus:border-[#5f54f7] focus:ring-2 focus:ring-[#5f54f7]/10 placeholder:text-slate-400"
       />
-      <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] text-slate-400 select-none">
-        <Command size={11} />
-        <span>K</span>
-      </div>
     </div>
 
     {/* Create button */}

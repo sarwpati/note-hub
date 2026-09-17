@@ -12,59 +12,156 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  background: #f4f5f7;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: #f4f5f7;
-}
-
-button,
-input,
-textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-#root {
-  min-height: 100vh;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #94a3b8;
-}
+* { box-sizing: border-box; }
+html { background: #f4f5f7; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #f4f5f7; }
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+#root { min-height: 100vh; }
+input::placeholder, textarea::placeholder { color: #94a3b8; }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: #e2e5ec;
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #c8ccd8;
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e2e5ec; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #c8ccd8; }
+
+/* Mobile safe area */
+@media (max-width: 768px) { body { padding-bottom: env(safe-area-inset-bottom); } }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   DARK MODE  —  activated when  <html class="dark">
+   
+   IMPORTANT: For Tailwind arbitrary-value classes like bg-[#f4f5f7],
+   we use [class~="..."] attribute selectors instead of escaped class
+   selectors, because ~ selector matches space-separated class words
+   without requiring CSS identifier escaping. This is the reliable approach.
+══════════════════════════════════════════════════════════════════════ */
+
+/* ── Root ────────────────────────────────────────────────────────── */
+html.dark,
+html.dark body {
+  background-color: #111318 !important;
+  color: #dde1ea;
+  color-scheme: dark;
 }
 
-/* Bottom nav safe area for mobile */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+/* ── Page backgrounds (arbitrary hex values — use attribute selector) ── */
+
+/* Main app background: bg-[#f4f5f7] */
+html.dark [class~="bg-[#f4f5f7]"] {
+  background-color: #111318 !important;
 }
+
+/* Active nav highlight: bg-[#eef0ff] */
+html.dark [class~="bg-[#eef0ff]"] {
+  background-color: #1e1c3a !important;
+}
+
+/* Avatar / initials background: bg-[#e8e5ff] */
+html.dark [class~="bg-[#e8e5ff]"] {
+  background-color: #1e1c3a !important;
+}
+
+/* White with opacity (empty state boxes) */
+html.dark [class~="bg-white/70"],
+html.dark [class~="bg-white\/70"] {
+  background-color: rgba(28, 30, 36, 0.9) !important;
+}
+html.dark [class~="bg-white/80"],
+html.dark [class~="bg-white\/80"] {
+  background-color: rgba(28, 30, 36, 0.95) !important;
+}
+
+/* Skeleton loaders */
+html.dark [class~="bg-slate-200/60"],
+html.dark [class~="bg-slate-200\/60"] {
+  background-color: rgba(42, 44, 52, 0.6) !important;
+}
+
+/* Note tag backgrounds (small colour chips — darken for dark mode) */
+html.dark [class~="bg-[#dfe9ff]"] { background-color: #1a2642 !important; }
+html.dark [class~="bg-[#daf7ea]"] { background-color: #0e2a1e !important; }
+html.dark [class~="bg-[#ece1ff]"] { background-color: #1e1438 !important; }
+html.dark [class~="bg-[#fef3c7]"] { background-color: #2a2010 !important; }
+html.dark [class~="bg-[#ffe3e3]"] { background-color: #2a1010 !important; }
+html.dark [class~="bg-[#e6edf8]"] { background-color: #1a1f2a !important; }
+html.dark [class~="bg-[#fce7f3]"] { background-color: #2a1020 !important; }
+html.dark [class~="bg-[#fde7d8]"] { background-color: #2a1a0a !important; }
+
+/* Note tag text colours (lighten for readability) */
+html.dark [class~="text-[#2d4d9c]"] { color: #6694e8 !important; }
+html.dark [class~="text-[#197a46]"] { color: #4caf80 !important; }
+html.dark [class~="text-[#6f4bc8]"] { color: #9b7fe0 !important; }
+html.dark [class~="text-[#b7791f]"] { color: #e8a850 !important; }
+html.dark [class~="text-[#b42318]"] { color: #f87171 !important; }
+html.dark [class~="text-[#475467]"] { color: #9ba8bf !important; }
+html.dark [class~="text-[#b4357a]"] { color: #e879b0 !important; }
+html.dark [class~="text-[#b15b13]"] { color: #e0904a !important; }
+
+/* ── White surfaces (cards, sidebar, topbar, modals) ─────────────── */
+html.dark .bg-white {
+  background-color: #1c1e25 !important;
+}
+
+/* ── Slate tints ─────────────────────────────────────────────────── */
+html.dark .bg-slate-50  { background-color: #21242c !important; }
+html.dark .bg-slate-100 { background-color: #2a2c35 !important; }
+html.dark .bg-slate-200 { background-color: #32353f !important; }
+
+/* ── Borders ─────────────────────────────────────────────────────── */
+html.dark .border-slate-200 { border-color: #2a2d3a !important; }
+html.dark .border-slate-100 { border-color: #222530 !important; }
+html.dark .border-r         { border-right-color:  #2a2d3a !important; }
+html.dark .border-b         { border-bottom-color: #2a2d3a !important; }
+html.dark .border-t         { border-top-color:    #2a2d3a !important; }
+html.dark .border-l         { border-left-color:   #2a2d3a !important; }
+
+/* Dashed borders (empty states) */
+html.dark .border-dashed { border-color: #2a2d3a !important; }
+
+/* ── Text ────────────────────────────────────────────────────────── */
+html.dark .text-slate-800 { color: #e4e7f0 !important; }
+html.dark .text-slate-700 { color: #cdd1de !important; }
+html.dark .text-slate-600 { color: #9ba4bc !important; }
+html.dark .text-slate-500 { color: #7a84a0 !important; }
+html.dark .text-slate-400 { color: #58607a !important; }
+
+/* ── Inputs / Textareas ──────────────────────────────────────────── */
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+  background-color: #21242c !important;
+  color: #dde1ea !important;
+  border-color: #2a2d3a !important;
+}
+html.dark input:disabled,
+html.dark textarea:disabled {
+  background-color: #1c1e25 !important;
+  color: #555d78 !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #555d78 !important; }
+
+/* Focused input ring */
+html.dark input:focus,
+html.dark textarea:focus {
+  border-color: #5f54f7 !important;
+  box-shadow: 0 0 0 2px rgba(95, 84, 247, 0.15) !important;
+}
+
+/* ── Hover state overrides ───────────────────────────────────────── */
+html.dark .hover\:bg-slate-50:hover  { background-color: #21242c !important; }
+html.dark .hover\:bg-slate-100:hover { background-color: #2a2c35 !important; }
+html.dark .hover\:bg-red-50:hover    { background-color: #2d1515 !important; }
+
+/* ── Shadows (reduce harshness) ─────────────────────────────────── */
+html.dark .shadow-sm  { box-shadow: 0 1px 3px  rgba(0,0,0,0.55) !important; }
+html.dark .shadow-md  { box-shadow: 0 4px 8px  rgba(0,0,0,0.55) !important; }
+html.dark .shadow-xl  { box-shadow: 0 20px 30px rgba(0,0,0,0.65) !important; }
+html.dark .shadow-2xl { box-shadow: 0 25px 50px rgba(0,0,0,0.75) !important; }
+
+/* ── Scrollbar in dark mode ─────────────────────────────────────── */
+html.dark ::-webkit-scrollbar-thumb       { background: #2a2d3a; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: #3a3e50; }

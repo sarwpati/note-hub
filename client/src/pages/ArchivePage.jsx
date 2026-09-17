@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RotateCcw, Trash2 } from 'lucide-react';
 import Sidebar, { MobileBottomNav } from '../components/layout/Sidebar';
 import TopBar from '../components/layout/TopBar';
 import { noteService } from '../services/noteService';
+import { useConfirm } from '../context/ConfirmContext';
 
 const colorDotMap = {
   blue: 'bg-[#cfe1ff]', green: 'bg-[#c6f6d5]', purple: 'bg-[#e9d8fd]',
@@ -11,6 +13,8 @@ const colorDotMap = {
 };
 
 const ArchivePage = () => {
+  const navigate = useNavigate();
+  const { confirm } = useConfirm();
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -29,7 +33,14 @@ const ArchivePage = () => {
 
   const handleRestore = async (id) => { await noteService.toggleArchive(id); fetchNotes(); };
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this archived note permanently?')) return;
+    const ok = await confirm({
+      title: 'Delete permanently?',
+      message: 'This archived note will be deleted forever and cannot be recovered.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      variant: 'danger',
+    });
+    if (!ok) return;
     await noteService.deleteNote(id);
     fetchNotes();
   };
@@ -122,7 +133,7 @@ const ArchivePage = () => {
       </main>
 
       {/* Mobile bottom nav */}
-      <MobileBottomNav />
+      <MobileBottomNav onCreateClick={() => navigate('/dashboard?new=1')} />
     </div>
   );
 };

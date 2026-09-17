@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Archive, ArrowLeft, Bell, Bold, Italic, Link2, List, MoreHorizontal, Pin, Share2, Trash2, Underline, X } from 'lucide-react';
+import { Archive, ArrowLeft, Bold, Italic, Link2, List, MoreHorizontal, Pin, Share2, Trash2, Underline, X } from 'lucide-react';
 import { noteService } from '../services/noteService';
+import { useConfirm } from '../context/ConfirmContext';
 
 const NOTE_COLORS = ['blue', 'green', 'purple', 'yellow', 'red', 'gray', 'pink', 'orange'];
 
@@ -19,6 +20,7 @@ const colorSwatchMap = {
 const NoteDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { confirm } = useConfirm();
   const [note, setNote] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -64,7 +66,14 @@ const NoteDetailPage = () => {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm('Delete this note?')) return;
+    const ok = await confirm({
+      title: 'Delete note?',
+      message: 'This note will be permanently deleted and cannot be recovered.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      variant: 'danger',
+    });
+    if (!ok) return;
     await noteService.deleteNote(id);
     navigate('/dashboard');
   };
