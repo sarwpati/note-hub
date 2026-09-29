@@ -284,8 +284,3 @@ NoteHub is a practical, full-stack notes application that combines a clean user 
 
 ---
 
-If you want, I can also add:
-- a screenshot section,
-- a deployment guide for Render/Vercel,
-- a troubleshooting section,
-- or a shorter version of this README for GitHub profile/project showcase.
